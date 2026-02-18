@@ -1,0 +1,55 @@
+# --- JAVA / MAVEN (Spring Boot) ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+/static
+/classes
+*.class
+*.jar
+*.war
+*.ear
+*.tar.gz
+# Ignorar arquivos de log e banco de dados local (H2)
+*.log
+*.db
+test-output/
+
+# --- NODE / ANGULAR ---
+node_modules/
+/dist
+/.angular/cache
+/.angular/
+/tmp
+/out-tsc
+/bazel-out
+npm-debug.log
+yarn-error.log
+
+# --- IDEs (IntelliJ, VS Code, Eclipse) ---
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+.project
+.classpath
+.settings/
+.factorypath
+
+# --- SISTEMA OPERACIONAL ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# --- CONFIGURAÇÕES DE AMBIENTE (SENHAS) ---
+.env
+.env.local
+# application-local.properties

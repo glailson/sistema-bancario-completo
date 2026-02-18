@@ -1,0 +1,70 @@
+.card { border-radius: 12px; border: none; }
+h2 { letter-spacing: -1px; }
+.table th { border-top: none; }
+.badge { width: 80px; }
+
+
+/* Container das operações */
+.operacoes-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr; /* Divide o espaço proporcionalmente */
+  gap: 20px;
+  align-items: end;
+  padding: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+/* Estilo dos Botões */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+
+.btn-credito { background-color: #2ecc71; } /* Verde */
+.btn-debito { background-color: #e74c3c; }   /* Vermelho */
+.btn-transferir { background-color: #3498db; }
+
+/* Cores no Extrato baseadas no tipo */
+.tipo-credito {
+  color: #2ecc71 !important;
+  font-weight: bold;
+}
+
+.tipo-debito {
+  color: #e74c3c !important;
+  font-weight: bold;
+}
+
+.btn-voltar-home {
+  background-color: #ffffff;
+  border: 2px solid #007bff; /* Azul do Banco Leoncio */
+  color: #007bff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 18px;
+  transition: all 0.3s ease;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.btn-voltar-home:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: translateY(-2px); /* Leve subida */
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2) !important;
+}
+
+/* Efeito ao clicar */
+.btn-voltar-home:active {
+  transform: translateY(0);
+}

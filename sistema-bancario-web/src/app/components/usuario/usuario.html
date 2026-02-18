@@ -1,0 +1,111 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary"><i class="bi bi-bank"></i> Banco Leoncio - Área do Cliente</h2>
+    <button class="btn btn-voltar-home shadow-sm" routerLink="/">
+      <i class="bi bi-house-door-fill me-2"></i> Voltar para Home
+    </button>
+  </div>
+
+  <div *ngIf="conta" class="animate__animated animate__fadeIn">
+
+    <div class="card bg-dark text-white shadow-sm mb-4 overflow-hidden border-0">
+      <div class="card-body p-4">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h6 class="text-uppercase opacity-75 mb-1">Titular da Conta</h6>
+            <h3 class="mb-0">{{ conta.titular }}</h3>
+            <span class="badge bg-secondary mt-2">Nº da Conta: {{ conta.numero }}</span>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <p class="mb-0 small opacity-75">Saldo Atual</p>
+            <h2 class="text-success fw-bold">{{ conta.saldo | currency:'BRL' }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-body">
+        <h5 class="card-title mb-3 text-secondary">Realizar Operação Financeira</h5>
+        <div class="row g-3">
+
+          <div class="col-md-3">
+            <label class="small text-muted">Valor da Operação</label>
+            <div class="input-group">
+              <span class="input-group-text">R$</span>
+              <input type="number" class="form-control" [(ngModel)]="valorTransacao" placeholder="0.00">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="small text-muted">Nº Conta Destino</label>
+            <input type="number" class="form-control" [(ngModel)]="idDestino" placeholder="Ex: 12345">
+          </div>
+          <!--
+          <div class="col-md-6 d-flex align-items-end">
+
+            <button class="btn btn-success me-2 flex-grow-1" (click)="executarOperacao('creditar')">
+              <i class="bi bi-plus-circle"></i> Crédito
+            </button>
+            <button class="btn btn-danger me-2 flex-grow-1" (click)="executarOperacao('debitar')">
+              <i class="bi bi-dash-circle"></i> Débito
+            </button>
+
+            <button class="btn btn-primary flex-grow-1" (click)="realizarTransferencia()">
+              <i class="bi bi-arrow-left-right"></i> Transferir
+            </button>
+          </div>
+          -->
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-transferir w-100 shadow-sm" (click)="realizarTransferencia()">
+              <i class="bi bi-arrow-left-right me-2"></i> Transferir
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-light fw-bold py-3 text-secondary">
+        <i class="bi bi-list-task"></i> Extrato de Movimentações
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+          <tr>
+            <th class="ps-4">Data/Hora</th>
+            <th>Operação</th>
+            <th>Conta</th>
+            <th>Valor</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let t of conta.transacoes">
+            <td>{{ t.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
+
+            <td [ngClass]="{'tipo-debito': t.tipoTransacao === 'TRANSFERENCIA_ENVIADA', 'tipo-credito': t.tipoTransacao !== 'TRANSFERENCIA_ENVIADA'}">
+              {{ t.tipoTransacao === 'TRANSFERENCIA_ENVIADA' ? 'DÉBITO' : 'CRÉDITO' }}
+            </td>
+
+            <td>
+              <span *ngIf="t.contaDestino">Destino: {{ t.contaDestino.numero }}</span>
+              <span *ngIf="!t.contaDestino">-</span>
+            </td>
+
+            <td [ngClass]="{'tipo-debito': t.tipoTransacao === 'TRANSFERENCIA_ENVIADA', 'tipo-credito': t.tipoTransacao !== 'TRANSFERENCIA_ENVIADA'}">
+              {{ t.valor | currency:'BRL' }}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="!conta.transacoes || conta.transacoes.length === 0" class="p-5 text-center text-muted">
+          <i class="bi bi-info-circle display-6 d-block mb-2"></i>
+          Nenhuma transação registrada até o momento.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

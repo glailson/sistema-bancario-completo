@@ -1,0 +1,22 @@
+.btn-voltar-home {
+  background-color: #ffffff;
+  border: 2px solid #007bff; /* Azul do Banco Leoncio */
+  color: #007bff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 18px;
+  transition: all 0.3s ease;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.btn-voltar-home:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: translateY(-2px); /* Leve subida */
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2) !important;
+}
+
+/* Efeito ao clicar */
+.btn-voltar-home:active {
+  transform: translateY(0);
+}
