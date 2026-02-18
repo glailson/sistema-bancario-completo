@@ -1,10 +1,33 @@
+### Java / Maven ###
 HELP.md
 target/
-.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.mvn/
+mvnw
+mvnw.cmd
 
-### STS ###
+### Angular (Front-end) ###
+# Ignora a pasta de dependências (MUITO IMPORTANTE)
+**/node_modules/
+# Ignora a pasta de build do Angular
+**/dist/
+# Ignora cache do Angular
+**/.angular/
+
+### IDEs ###
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# VS Code
+.vscode/
+
+# STS / Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -13,21 +36,6 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
+### Sistema Operacional ###
+Thumbs.db
+.DS_Store
