@@ -11,7 +11,7 @@ import {RouterLink} from '@angular/router';
   template: `
     <div class="card shadow border-0 mt-4">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="text-primary"><i class="bi bi-bank"></i> Banco Leoncio - Área do Cliente</h2>
+        <h2 class="text-primary"><i class="bi bi-bank"></i> Banco Leoncio - Cadastro de contas</h2>
         <button class="btn btn-voltar-home shadow-sm" routerLink="/">
           <i class="bi bi-house-door-fill me-2"></i> Voltar para Home
         </button>
@@ -71,10 +71,9 @@ export class AdminComponent {
   novaConta = { titular: '', numero: '', saldo: 0 };
 
   salvar() {
-    // Validação: Saldo não pode ser menor que zero
     if (this.novaConta.saldo < 0) {
       alert('Erro: O saldo inicial não pode ser negativo.');
-      return; // Interrompe a execução
+      return;
     }
 
     this.service.criar(this.novaConta).subscribe({

@@ -21,6 +21,11 @@ public class ContaService {
 
     // OPERAÇÃO: Criar Conta
     public Conta criarConta(Conta conta) {
+        boolean jaExiste = contaRepository.findByNumero(conta.getNumero()).isPresent();
+
+        if (jaExiste) {
+            throw new NegocioException("Não foi possível criar a conta: O número de conta " + conta.getNumero() + " já está em uso.");
+        }
         return contaRepository.save(conta);
     }
 
@@ -55,9 +60,9 @@ public class ContaService {
             throw new NegocioException("Não é possível transferir para a mesma conta.");
         }
 
-        Conta origem = contaRepository.findById(origemId)
+        Conta origem = contaRepository.findByIdWithLock(origemId)
                 .orElseThrow(() -> new NegocioException("Conta de origem não encontrada"));
-        Conta destino = contaRepository.findByNumero(destinoId.toString())
+        Conta destino = contaRepository.findByNumeroLock(destinoId.toString())
                 .orElseThrow(() -> new NegocioException("Conta de destino não encontrada"));
 
         if (origem.getSaldo().compareTo(valor) < 0) {

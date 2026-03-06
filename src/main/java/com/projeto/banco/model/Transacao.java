@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Table(name = "transacao")
 @Data
 public class Transacao {
 	
@@ -40,16 +41,8 @@ public class Transacao {
         this.valor = valor;
         this.tipoTransacao = tipo;
         this.conta = conta;
-        this.contaDestino = contaDestino; // Salva o ID da outra conta envolvida
+        this.contaDestino = contaDestino;
         this.dataHora = LocalDateTime.now();
-    }
-
-    @Transient
-    public String getNumeroContaFormatado() {
-        if (this.contaDestino != null) {
-            return this.contaDestino.getNumero();
-        }
-        return "N/A";
     }
 
     public enum TipoTransacao {
