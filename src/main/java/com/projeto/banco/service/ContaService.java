@@ -6,15 +6,25 @@ import com.projeto.banco.model.Transacao;
 import com.projeto.banco.repository.ContaRepository;
 import com.projeto.banco.repository.TransacaoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 @Service
 @RequiredArgsConstructor
 public class ContaService {
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     private final ContaRepository contaRepository;
     private final TransacaoRepository transacaoRepository;
@@ -80,6 +90,19 @@ public class ContaService {
 
         contaRepository.save(origem);
         contaRepository.save(destino);
+
+        // 2. Prepara os dados da mensagem
+        String dataHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+        String mensagem = String.format("[%s] Transferência de R$ %s da conta %d para a conta %d",
+                dataHora, valor, origemId, destinoId);
+
+        // 3. Agenda o envio para o Kafka (Garante que só envia se o commit ocorrer)
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                kafkaTemplate.send("transferencia-movimentacoes-usuarios", mensagem);
+            }
+        });
     }
 
     public List<Transacao> emitirExtrato(Long contaId) {
